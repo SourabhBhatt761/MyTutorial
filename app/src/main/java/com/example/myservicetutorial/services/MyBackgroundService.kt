@@ -9,6 +9,7 @@ class MyBackgroundService : Service() {
 
     private val TAG = "MyBackgroundService"
 
+    //runs whenever we call startService() or startForegroundService()
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         Thread {
