@@ -5,6 +5,7 @@ import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.example.myservicetutorial.databinding.ActivityMainBinding
 import com.example.myservicetutorial.services.MyForegroundService
 import com.example.myservicetutorial.utils.MyBroadCastReceiver
@@ -19,10 +20,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (MyForegroundService.isServiceRunning){
+        if (MyForegroundService.isServiceRunning) {
             binding.serviceText.text = getString(R.string.service_is_running)
             binding.serviceButton.text = getString(R.string.stop_service)
-        }else{
+        } else {
             binding.serviceText.text = getString(R.string.welcome)
             binding.serviceButton.text = getString(R.string.start_service)
         }
@@ -37,31 +38,61 @@ class MainActivity : AppCompatActivity() {
         myBroadCastReceiver = MyBroadCastReceiver()
 
         IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED).also {
-            registerReceiver(myBroadCastReceiver,it)
+            ContextCompat.registerReceiver(
+                this,
+                myBroadCastReceiver,
+                it,
+                ContextCompat.RECEIVER_NOT_EXPORTED
+            )
         }
         IntentFilter(Intent.ACTION_REBOOT).also {
-            registerReceiver(myBroadCastReceiver,it)
+            ContextCompat.registerReceiver(
+                this,
+                myBroadCastReceiver,
+                it,
+                ContextCompat.RECEIVER_NOT_EXPORTED
+            )
         }
         IntentFilter(Intent.ACTION_BOOT_COMPLETED).also {
-            registerReceiver(myBroadCastReceiver,it)
+            ContextCompat.registerReceiver(
+                this,
+                myBroadCastReceiver,
+                it,
+                ContextCompat.RECEIVER_NOT_EXPORTED
+            )
         }
         IntentFilter(Intent.ACTION_BATTERY_LOW).also {
-            registerReceiver(myBroadCastReceiver,it)
+            ContextCompat.registerReceiver(
+                this,
+                myBroadCastReceiver,
+                it,
+                ContextCompat.RECEIVER_NOT_EXPORTED
+            )
         }
         IntentFilter(Intent.ACTION_POWER_DISCONNECTED).also {
-            registerReceiver(myBroadCastReceiver,it)
+            ContextCompat.registerReceiver(
+                this,
+                myBroadCastReceiver,
+                it,
+                ContextCompat.RECEIVER_NOT_EXPORTED
+            )
         }
         IntentFilter(Intent.ACTION_POWER_CONNECTED).also {
-            registerReceiver(myBroadCastReceiver,it)
+            ContextCompat.registerReceiver(
+                this,
+                myBroadCastReceiver,
+                it,
+                ContextCompat.RECEIVER_NOT_EXPORTED
+            )
         }
     }
 
     private fun clickListener() {
 
         binding.serviceButton.setOnClickListener {
-            if (MyForegroundService.isServiceRunning){
+            if (MyForegroundService.isServiceRunning) {
                 stopMyService()
-            }else{
+            } else {
                 startMyService()
             }
         }
@@ -72,7 +103,7 @@ class MainActivity : AppCompatActivity() {
         binding.serviceText.text = getString(R.string.welcome)
         binding.serviceButton.text = getString(R.string.start_service)
 
-        stopService(Intent(this,MyForegroundService::class.java))
+        stopService(Intent(this, MyForegroundService::class.java))
 
     }
 
@@ -82,7 +113,7 @@ class MainActivity : AppCompatActivity() {
 //        startService(intent1)
 
         //Foreground service
-        val intent2 = Intent(this,MyForegroundService::class.java)
+        val intent2 = Intent(this, MyForegroundService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !MyForegroundService.isServiceRunning) {
             startForegroundService(intent2)
         }
@@ -90,5 +121,11 @@ class MainActivity : AppCompatActivity() {
         binding.serviceText.text = getString(R.string.service_is_running)
         binding.serviceButton.text = getString(R.string.stop_service)
 
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(myBroadCastReceiver)
     }
 }
