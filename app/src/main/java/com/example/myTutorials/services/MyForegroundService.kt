@@ -4,8 +4,11 @@ import android.app.*
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.example.myTutorials.MainActivity
 import com.example.myTutorials.R
@@ -34,8 +37,11 @@ class MyForegroundService : Service() {
         Thread {
             while (isServiceRunning) {
                 Log.e(TAG, "Service is running...")
+                Handler(Looper.getMainLooper()).post {
+                    Toast.makeText(this, "FG service toast", Toast.LENGTH_SHORT).show()
+                }
                 try {
-                    Thread.sleep(2000)
+                    Thread.sleep(4000)
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
@@ -44,19 +50,21 @@ class MyForegroundService : Service() {
 
 
         //creating pending intent, so on click of the notification we can open the mainActivity class
-        val myIntent = Intent(this,MainActivity::class.java)
+        val myIntent = Intent(this,MyServiceActivity::class.java)
         pendingIntent = PendingIntent.getActivity(this,1001,myIntent,PendingIntent.FLAG_IMMUTABLE)
         createNotificationChannel()
 
         startForeground(1111, notification())
 
-        return super.onStartCommand(intent, flags, startId)
+        //Fix bug where Intent parameter was NULL.
+        //bcz if service is killed by the system than When it gets restarted START_STICKY will be return null intent
+        //so we are using START_REDELIVER_INTENT
+        return START_REDELIVER_INTENT;
     }
 
     override fun onBind(intent: Intent): IBinder? {
         return  null
     }
-
 
 
     //to register the notification

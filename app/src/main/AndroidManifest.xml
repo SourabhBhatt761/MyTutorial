@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.myTutorials">
 
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyServiceTutorial">
+        <activity
+            android:name=".services.MyServiceActivity"
+            android:exported="false" />
+
         <service
             android:name=".services.MyForegroundService"
             android:enabled="true"
@@ -20,19 +24,20 @@
             android:name=".services.MyBackgroundService"
             android:enabled="true"
             android:exported="false" />
-        <receiver android:name=".utils.MyBroadCastReceiver"
+
+        <receiver
+            android:name=".utils.MyBroadCastReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.REBOOT"/>
-                <action android:name="android.intent.action.BATTERY_LOW"/>
-                <action android:name="android.intent.action.CONNECTIVITY_CHANGE"/>
-                <action android:name="android.intent.action.ACTION_AIRPLANE_MODE_CHANGED"/>
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.REBOOT" />
+                <action android:name="android.intent.action.BATTERY_LOW" />
+                <action android:name="android.intent.action.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.ACTION_AIRPLANE_MODE_CHANGED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
-
 
         <activity
             android:name=".MainActivity"
