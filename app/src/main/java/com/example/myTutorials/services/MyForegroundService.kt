@@ -10,7 +10,6 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
-import com.example.myTutorials.MainActivity
 import com.example.myTutorials.R
 
 class MyForegroundService : Service() {
@@ -18,7 +17,6 @@ class MyForegroundService : Service() {
     private val CHANNEL_ID = "channelId"
     private val CHANNEL_Name = "channelName"
     private val TAG = "MyForegroundService"
-    private lateinit var pendingIntent : PendingIntent
 
     //in java we use  `static` , in kotlin we use `companion object`
     //public static boolean isServiceRunning = true
@@ -51,10 +49,10 @@ class MyForegroundService : Service() {
 
         //creating pending intent, so on click of the notification we can open the mainActivity class
         val myIntent = Intent(this,MyServiceActivity::class.java)
-        pendingIntent = PendingIntent.getActivity(this,1001,myIntent,PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent = PendingIntent.getActivity(this,1001,myIntent,PendingIntent.FLAG_IMMUTABLE)
         createNotificationChannel()
 
-        startForeground(1111, notification())
+        startForeground(1111, notification(pendingIntent))
 
         //Fix bug where Intent parameter was NULL.
         //bcz if service is killed by the system than When it gets restarted START_STICKY will be return null intent
@@ -93,7 +91,7 @@ class MyForegroundService : Service() {
 
 
 
-    private fun notification() : Notification {
+    private fun notification(pendingIntent: PendingIntent): Notification {
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Notification Title")
             //text will be displayed only of one line ,if setStyle is there this won't be shown
