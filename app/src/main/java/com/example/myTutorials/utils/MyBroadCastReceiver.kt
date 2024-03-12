@@ -1,12 +1,11 @@
-package com.example.myservicetutorial.utils
+package com.example.myTutorials.utils
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
-import com.example.myservicetutorial.services.MyForegroundService
+import com.example.myTutorials.services.MyForegroundService
 
 class MyBroadCastReceiver : BroadcastReceiver() {
 

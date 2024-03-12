@@ -1,4 +1,4 @@
-package com.example.myservicetutorial
+package com.example.myTutorials
 
 import android.content.Intent
 import android.content.IntentFilter
@@ -6,9 +6,9 @@ import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.myservicetutorial.databinding.ActivityMainBinding
-import com.example.myservicetutorial.services.MyForegroundService
-import com.example.myservicetutorial.utils.MyBroadCastReceiver
+import com.example.myTutorials.databinding.ActivityMainBinding
+import com.example.myTutorials.services.MyForegroundService
+import com.example.myTutorials.utils.MyBroadCastReceiver
 
 class MainActivity : AppCompatActivity() {
 
