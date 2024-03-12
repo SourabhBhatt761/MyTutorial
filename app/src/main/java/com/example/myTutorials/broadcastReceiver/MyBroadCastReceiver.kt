@@ -1,4 +1,4 @@
-package com.example.myTutorials.utils
+package com.example.myTutorials.broadcastReceiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -10,6 +10,9 @@ import com.example.myTutorials.services.MyForegroundService
 class MyBroadCastReceiver : BroadcastReceiver() {
 
     override fun onReceive(p0: Context?, p1: Intent?) {
+
+        //Always add the permissions in android manifest's <intent-filter>
+
         if (p1?.action.equals(Intent.ACTION_BOOT_COMPLETED)) {
             //Foreground service
             val intent2 = Intent(p0, MyForegroundService::class.java)

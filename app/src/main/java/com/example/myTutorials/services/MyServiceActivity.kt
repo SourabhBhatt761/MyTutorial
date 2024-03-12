@@ -7,14 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import com.example.myTutorials.R
-import com.example.myTutorials.databinding.ActivityMainBinding
 import com.example.myTutorials.databinding.ActivityMyServiceBinding
-import com.example.myTutorials.utils.MyBroadCastReceiver
+import com.example.myTutorials.broadcastReceiver.MyBroadCastReceiver
 
 class MyServiceActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMyServiceBinding
-    private lateinit var myBroadCastReceiver: MyBroadCastReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,64 +27,9 @@ class MyServiceActivity : AppCompatActivity() {
             binding.fgServiceButton.isEnabled = true
         }
 
-
-        registerMyReceiver()
-
         clickListener()
     }
 
-    private fun registerMyReceiver() {
-        myBroadCastReceiver = MyBroadCastReceiver()
-
-        IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED).also {
-            ContextCompat.registerReceiver(
-                this,
-                myBroadCastReceiver,
-                it,
-                ContextCompat.RECEIVER_NOT_EXPORTED
-            )
-        }
-        IntentFilter(Intent.ACTION_REBOOT).also {
-            ContextCompat.registerReceiver(
-                this,
-                myBroadCastReceiver,
-                it,
-                ContextCompat.RECEIVER_NOT_EXPORTED
-            )
-        }
-        IntentFilter(Intent.ACTION_BOOT_COMPLETED).also {
-            ContextCompat.registerReceiver(
-                this,
-                myBroadCastReceiver,
-                it,
-                ContextCompat.RECEIVER_NOT_EXPORTED
-            )
-        }
-        IntentFilter(Intent.ACTION_BATTERY_LOW).also {
-            ContextCompat.registerReceiver(
-                this,
-                myBroadCastReceiver,
-                it,
-                ContextCompat.RECEIVER_NOT_EXPORTED
-            )
-        }
-        IntentFilter(Intent.ACTION_POWER_DISCONNECTED).also {
-            ContextCompat.registerReceiver(
-                this,
-                myBroadCastReceiver,
-                it,
-                ContextCompat.RECEIVER_NOT_EXPORTED
-            )
-        }
-        IntentFilter(Intent.ACTION_POWER_CONNECTED).also {
-            ContextCompat.registerReceiver(
-                this,
-                myBroadCastReceiver,
-                it,
-                ContextCompat.RECEIVER_NOT_EXPORTED
-            )
-        }
-    }
 
     private fun clickListener() {
 
@@ -132,11 +75,5 @@ class MyServiceActivity : AppCompatActivity() {
 
         binding.serviceText.text = getString(R.string.service_is_running)
         binding.fgServiceButton.isEnabled = false
-    }
-
-
-    override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(myBroadCastReceiver)
     }
 }
