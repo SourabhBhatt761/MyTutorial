@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyServiceTutorial">
         <activity
-            android:name=".webview.WebviewActivity"
+            android:name=".webview.WebViewActivity"
             android:exported="false" />
         <activity
             android:name=".services.MyServiceActivity"

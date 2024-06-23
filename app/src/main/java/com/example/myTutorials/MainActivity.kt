@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import com.example.myTutorials.broadcastReceiver.MyBroadCastReceiver
 import com.example.myTutorials.databinding.ActivityMainBinding
 import com.example.myTutorials.services.MyServiceActivity
-import com.example.myTutorials.webview.WebviewActivity
+import com.example.myTutorials.webview.WebViewActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,7 +21,12 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initUI()
         clickListener()
+    }
+
+    private fun initUI() {
+        myBroadCastReceiver = MyBroadCastReceiver()
     }
 
     private fun clickListener() {
@@ -36,12 +41,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.webViewBtn.setOnClickListener {
-            startActivity(Intent(this,WebviewActivity::class.java))
+            startActivity(Intent(this,WebViewActivity::class.java))
         }
     }
 
     private fun registerMyReceivers() {
-        myBroadCastReceiver = MyBroadCastReceiver()
 
         IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED).also {
             ContextCompat.registerReceiver(

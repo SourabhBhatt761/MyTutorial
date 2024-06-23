@@ -5,9 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".webview.WebviewActivity">
+    tools:context=".webview.WebViewActivity">
 
-    <WebView
+    <com.example.myTutorials.webview.CustomWebViewView
         android:id="@+id/webView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
