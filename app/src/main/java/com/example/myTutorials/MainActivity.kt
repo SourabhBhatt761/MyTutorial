@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import com.example.myTutorials.broadcastReceiver.MyBroadCastReceiver
 import com.example.myTutorials.databinding.ActivityMainBinding
 import com.example.myTutorials.services.MyServiceActivity
+import com.example.myTutorials.webview.WebviewActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +33,10 @@ class MainActivity : AppCompatActivity() {
         binding.broadcastReceiver.setOnClickListener {
             Toast.makeText(this,"Broadcast receivers attached !!",Toast.LENGTH_LONG).show()
             registerMyReceivers()
+        }
+
+        binding.webViewBtn.setOnClickListener {
+            startActivity(Intent(this,WebviewActivity::class.java))
         }
     }
 

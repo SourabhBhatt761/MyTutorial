@@ -33,6 +33,18 @@
             android:text="Attach Broadcast Receivers"
             />
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/webViewBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/broadcastReceiver"
+            android:textAllCaps="false"
+            android:text="Webview"
+            />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

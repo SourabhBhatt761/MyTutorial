@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -13,9 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyServiceTutorial">
         <activity
-            android:launchMode="singleTask"
-            android:name=".services.MyServiceActivity"
+            android:name=".webview.WebviewActivity"
             android:exported="false" />
+        <activity
+            android:name=".services.MyServiceActivity"
+            android:exported="false"
+            android:launchMode="singleTask" />
 
         <service
             android:name=".services.MyForegroundService"

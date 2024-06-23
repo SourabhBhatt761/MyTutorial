@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyServiceTutorial</string>
+    <string name="app_name">My Tutorials</string>
     <string name="service_is_running">Service is Running</string>
     <string name="welcome">Welcome</string>
     <string name="finish">Finish</string>
