@@ -5,6 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
+import android.webkit.WebChromeClient
+import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsCallback
@@ -20,6 +22,9 @@ class WebViewActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWebviewBinding
     private val TAG = "WebViewSAMLCode"
     private val url = "https://pages.talview.com/saml"
+    private val html = "<video class=\"ql-video ql-align-center\" src=\"https://static.talview.com/bestbuy/TalviewVideoInterviewPlatform-Q1.mp4\" height=\"187\" width=\"100%\" controls></video><p><br></p><p><strong>Why are you excited about working at Best Buy?</strong></p><p><br></p>"
+//    private val html = "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self' https://static.talview.com/;\">\n" +
+//        "<video class=\"ql-video ql-align-center\" src=\"https://static.talview.com/bestbuy/TalviewVideoInterviewPlatform-Q1.mp4\" height=\"187\" width=\"100%\" controls></video><p><br></p><p><strong>Why are you excited about working at Best Buy?</strong></p><p><br></p>"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +34,10 @@ class WebViewActivity : AppCompatActivity() {
         binding.webView.onUrlTokenFound = {
             Toast.makeText(this, it, Toast.LENGTH_LONG).show()
         }
-        binding.webView.loadUrl(url)
+
+        binding.webView.webChromeClient = WebChromeClient()
+        binding.webView.webViewClient = WebViewClient()
+        binding.webView.loadUrl(html)
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

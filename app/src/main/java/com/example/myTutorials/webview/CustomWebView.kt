@@ -6,8 +6,11 @@ import android.graphics.Bitmap
 import android.os.Message
 import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import android.view.ViewGroup
+import android.webkit.ConsoleMessage
 import android.webkit.WebChromeClient
+import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -25,24 +28,30 @@ constructor(
 
     override fun loadUrl(url: String) {
         this.apply {
-            webViewClient = WebClient()
+//            webViewClient = WebClient()
             tag = TAG
             settings.applyRequiredSetting()
-            webChromeClient = CustomWebChromeClient()
-            super.loadUrl(url)
+//            webChromeClient = CustomWebChromeClient()
+            super.loadData(url,"text/html","UTF-8")
         }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun WebSettings.applyRequiredSetting() {
         javaScriptEnabled = true
-        userAgentString = USER_AGENT
+//        userAgentString = USER_AGENT
         domStorageEnabled = true
         setSupportZoom(true)
         builtInZoomControls = true
+        mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
         displayZoomControls = true
+        loadWithOverviewMode = true
         setSupportMultipleWindows(true)
+        loadsImagesAutomatically = true
+        allowFileAccess = true
+        mediaPlaybackRequiresUserGesture = false
         javaScriptCanOpenWindowsAutomatically = true
+        setLayerType(View.LAYER_TYPE_HARDWARE,null)
     }
 
     inner class WebClient : WebViewClient() {
@@ -52,6 +61,15 @@ constructor(
 
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
+        }
+
+        override fun onReceivedError(
+            view: WebView?,
+            request: WebResourceRequest?,
+            error: WebResourceError?
+        ) {
+            Log.i(TAG,"onReceivedError called ${error}")
+            super.onReceivedError(view, request, error)
         }
 
         override fun shouldOverrideUrlLoading(
@@ -104,6 +122,11 @@ constructor(
 //                (webView.parent as? ViewGroup)?.removeView(webView)
 //            }
 //        }
+
+        override fun onConsoleMessage(consoleMessage: ConsoleMessage?): Boolean {
+            Log.i(TAG,"onConsoleMessage called ${consoleMessage}")
+            return super.onConsoleMessage(consoleMessage)
+        }
     }
 
     companion object {
