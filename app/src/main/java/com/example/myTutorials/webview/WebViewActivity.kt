@@ -38,6 +38,7 @@ class WebViewActivity : AppCompatActivity() {
         binding.webView.webChromeClient = WebChromeClient()
         binding.webView.webViewClient = WebViewClient()
         binding.webView.loadUrl(html)
+        Log.i("ActivityB","onCreate() called")
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -46,6 +47,36 @@ class WebViewActivity : AppCompatActivity() {
             return true
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.i("ActivityB","onRestart() called")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.i("ActivityB","onStart() called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("ActivityB","onResume() called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("ActivityB","onPause() called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i("ActivityB","onStop() called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.i("ActivityB","onDestroy() called")
     }
 
     private fun chromeCustomTab() {

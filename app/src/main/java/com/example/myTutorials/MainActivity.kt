@@ -3,6 +3,7 @@ package com.example.myTutorials
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -23,7 +24,34 @@ class MainActivity : AppCompatActivity() {
 
         initUI()
         clickListener()
+        Log.i("ActivityA","onCreate() called")
     }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.i("ActivityA","onRestart() called")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.i("ActivityA","onStart() called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.i("ActivityA","onResume() called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("ActivityA","onPause() called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.i("ActivityA","onStop() called")
+    }
+
 
     private fun initUI() {
         myBroadCastReceiver = MyBroadCastReceiver()
@@ -100,6 +128,26 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(myBroadCastReceiver)
+        Log.i("ActivityA","onDestroy() called")
     }
 
 }
+
+//      ActivityA             onCreate() called
+//		ActivityA             onStart() called
+//		ActivityA             onResume() called
+//
+//			button clicked
+//		ActivityA             onPause() called
+//		ActivityB             onCreate() called
+//		ActivityB             onStart() called
+//		ActivityB             onResume() called
+//		ActivityA             onStop() called
+//
+//			back button pressed
+//		ActivityB             onPause() called
+//		ActivityA             onRestart() called
+//		ActivityA             onStart() called
+//		ActivityA             onResume() called
+//		ActivityB             onStop() called
+//		ActivityB             onDestroy() called
