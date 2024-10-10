@@ -1,5 +1,6 @@
 package com.example.myTutorials
 
+import android.app.SearchManager
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
@@ -69,6 +70,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.webViewBtn.setOnClickListener {
+
+//            val webIntent = Intent(Intent.ACTION_WEB_SEARCH);
+//            webIntent.putExtra(SearchManager.QUERY, "iShowSpeed");
+//            startActivity(webIntent);
+
             startActivity(Intent(this,WebViewActivity::class.java))
         }
     }
