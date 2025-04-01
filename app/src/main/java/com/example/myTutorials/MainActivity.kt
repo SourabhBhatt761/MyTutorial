@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.myTutorials.bottomNav.BottomNavigationActivity
 import com.example.myTutorials.broadcastReceiver.MyBroadCastReceiver
 import com.example.myTutorials.databinding.ActivityMainBinding
 import com.example.myTutorials.services.MyServiceActivity
@@ -77,6 +78,10 @@ class MainActivity : AppCompatActivity() {
 
             startActivity(Intent(this,WebViewActivity::class.java))
         }
+
+        binding.bottomNavBtn.setOnClickListener {
+            startActivity(Intent(this, BottomNavigationActivity::class.java))
+        }
     }
 
     private fun registerMyReceivers() {
@@ -139,6 +144,9 @@ class MainActivity : AppCompatActivity() {
 
 }
 
+
+//      Output for Activity Lifecycle
+//
 //      ActivityA             onCreate() called
 //		ActivityA             onStart() called
 //		ActivityA             onResume() called
